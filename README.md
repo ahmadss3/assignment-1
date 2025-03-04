@@ -2,17 +2,6 @@
 
 This project provides a simple Go-based REST web application that offers information about countries and their historical population data. It also includes a status/diagnostics endpoint. Additionally, there is an option to return responses in a basic HTML format instead of plain JSON, for a more visually appealing browser experience.
 
-## Table of Contents
-1. [Overview](#overview)  
-2. [Endpoints](#endpoints)  
-3. [HTML or JSON Output](#html-or-json-output)  
-4. [How to Run](#how-to-run)  
-5. [Example Usage](#example-usage)  
-6. [Project Structure](#project-structure)  
-7. [Notes and Limitations](#notes-and-limitations)
-
----
-
 ## Overview
 The application integrates data from:
 - REST Countries API 
@@ -24,13 +13,13 @@ The application integrates data from:
 
 The service combines information from these external APIs to provide:
 1. General country info, including continents, population, languages, borders, capital, flag, and a list of cities.
-   At this endpoint:
+   - At this endpoint:
    ```https://assignment-1-x0um.onrender.com/countryinfo/v1/info/?format=html```
 2. Historical population data for a country, along with an optional year range filter and a calculated mean value.
-   At this endpoint:
+   - At this endpoint:
    ```https://assignment-1-x0um.onrender.com/countryinfo/v1/population/?format=html```
 3. A status endpoint that reports the availability of the external APIs and the uptime of this service.
-   At this endpoint:
+   - At this endpoint:
    ```https://assignment-1-x0um.onrender.com/countryinfo/v1/status/?format=html```
 
 ---
@@ -51,25 +40,22 @@ The service combines information from these external APIs to provide:
 - **Examples:**  
   - `GET /countryinfo/v1/info/NO`  
   - `GET /countryinfo/v1/info/NO?limit=10&format=html`
-  **Response**
-  - Content type: application/json
-  **Body:**
-  ``` {
+
+**Response**  
+- Content type: application/json
+
+**Body:**
+```json
+{
   "name": "Norway",
-  "continents": [
-    "Europe"
-  ],
+  "continents": ["Europe"],
   "population": 5379475,
   "languages": {
     "nno": "Norwegian Nynorsk",
     "nob": "Norwegian Bokmål",
     "smi": "Sami"
   },
-  "borders": [
-    "FIN",
-    "SWE",
-    "RUS"
-  ],
+  "borders": ["FIN", "SWE", "RUS"],
   "flag": "https://flagcdn.com/w320/no.png",
   "capital": "Oslo",
   "cities": [
@@ -79,7 +65,8 @@ The service combines information from these external APIs to provide:
     "Agdenes",
     "Agotnes"
   ]
-}```
+}
+```
 
 ### 2. `/countryinfo/v1/population/{country_code}?format=html`
 - **Method:** GET  
