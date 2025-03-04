@@ -1,6 +1,6 @@
-# Assignment_1 Cloud Technology
+# Assignment-1 Cloud Technology
 
-This project provides a simple Go-based REST web application that offers information about countries and their historical population data. It also includes a status/diagnostics endpoint. Additionally, there is an option to return responses in a basic HTML format (with a blue background) instead of plain JSON, for a more visually appealing browser experience.
+This project provides a simple Go-based REST web application that offers information about countries and their historical population data. It also includes a status/diagnostics endpoint. Additionally, there is an option to return responses in a basic HTML format instead of plain JSON, for a more visually appealing browser experience.
 
 ## Table of Contents
 1. [Overview](#overview)  
@@ -15,87 +15,136 @@ This project provides a simple Go-based REST web application that offers informa
 
 ## Overview
 The application integrates data from:
-- REST Countries API (self-hosted at http://129.241.150.113:8080/v3.1/)
-- CountriesNow API (self-hosted at http://129.241.150.113:3500/api/v0.1/)
+- REST Countries API 
+    - Endpoint: http://129.241.150.113:8080/v3.1/
+    - Documentation: http://129.241.150.113:8080/
+- CountriesNow API 
+     - Endpoint:      http://129.241.150.113:3500/api/v0.1/
+     - Documentation: https://documenter.getpostman.com/view/1134062/T1LJjU52
 
 The service combines information from these external APIs to provide:
-1. General country info, including continents, population, languages, borders, capital, flag, and a list of cities.  
-2. Historical population data for a country, along with an optional year range filter and a calculated mean value.  
+1. General country info, including continents, population, languages, borders, capital, flag, and a list of cities.
+   At this endpoint:
+   ```https://assignment-1-x0um.onrender.com/countryinfo/v1/info/?format=html```
+2. Historical population data for a country, along with an optional year range filter and a calculated mean value.
+   At this endpoint:
+   ```https://assignment-1-x0um.onrender.com/countryinfo/v1/population/?format=html```
 3. A status endpoint that reports the availability of the external APIs and the uptime of this service.
+   At this endpoint:
+   ```https://assignment-1-x0um.onrender.com/countryinfo/v1/status/?format=html```
 
 ---
+# How to use:
+---
+## As a service:
+- Please visit the following link to use the service:
+- ```https://assignment-1-x0um.onrender.com```
 
 ## Endpoints
 
-### 1. `/countryinfo/v1/info/{country_code}`
+### 1. `/countryinfo/v1/info/{country_code}?limit={integer}&format=html`
 - **Method:** GET  
 - **Description:** Returns general country information for the specified two-letter country code (ISO 3166-2).  
-- **Query Parameter (optional):** `limit` (integer) to limit the number of returned cities.  
+- **Query Parameter (optional):** `limit` (integer) to limit the number of returned cities.
+- **Query Parameter (optional):** `format`(html) to get a HTML view.
+
 - **Examples:**  
   - `GET /countryinfo/v1/info/NO`  
-  - `GET /countryinfo/v1/info/NO?limit=10`
+  - `GET /countryinfo/v1/info/NO?limit=10&format=html`
+  **Response**
+  - Content type: application/json
+  **Body:**
+  ``` {
+  "name": "Norway",
+  "continents": [
+    "Europe"
+  ],
+  "population": 5379475,
+  "languages": {
+    "nno": "Norwegian Nynorsk",
+    "nob": "Norwegian Bokmål",
+    "smi": "Sami"
+  },
+  "borders": [
+    "FIN",
+    "SWE",
+    "RUS"
+  ],
+  "flag": "https://flagcdn.com/w320/no.png",
+  "capital": "Oslo",
+  "cities": [
+    "Abelvaer",
+    "Adalsbruk",
+    "Adland",
+    "Agdenes",
+    "Agotnes"
+  ]
+}```
 
-### 2. `/countryinfo/v1/population/{country_code}`
+### 2. `/countryinfo/v1/population/{country_code}?format=html`
 - **Method:** GET  
 - **Description:** Returns historical population data for the specified two-letter country code, along with the mean population.  
-- **Query Parameter (optional):** `limit={startYear-endYear}` to filter results by year range.  
+- **Query Parameter (optional):** `limit={startYear-endYear}` to filter results by year range. 
+- **Query Parameter (optional):** `format`(html) to get a HTML view. 
 - **Examples:**  
   - `GET /countryinfo/v1/population/NO`  
-  - `GET /countryinfo/v1/population/NO?limit=2010-2015`
+  - `GET /countryinfo/v1/population/NO?limit=2013-2015&format=html`
+  **Response**
+  - Content type: application/json
+  **Body:**
+  ```{
+  "mean": 5135154,
+  "values": [
+    {
+      "year": 2013,
+      "value": 5079623
+    },
+    {
+      "year": 2014,
+      "value": 5137232
+    },
+    {
+      "year": 2015,
+      "value": 5188607
+    }
+  ]
+}```
 
 ### 3. `/countryinfo/v1/status/`
 - **Method:** GET  
-- **Description:** Returns diagnostic information about this service, including uptime and the status codes for the external APIs.  
+- **Description:** Returns diagnostic information about this service, including uptime and the status codes for the external APIs.
+- **Query Parameter (optional):** `format`(html) to get a HTML view.  
 - **Example:**  
-  - `GET /countryinfo/v1/status/`
+  - `GET /countryinfo/v1/status/?format=html`
+  **Response**
+  - Content type: application/json
+  **Body:**
+  ``` {
+  "countriesnowapi": 200,
+  "restcountriesapi": 200,
+  "version": "v1",
+  "uptime": 1370
+}```
 
 ---
 
 ## HTML or JSON Output
 By default, all endpoints return JSON (`Content-Type: application/json`).  
-If you want a simple HTML view (with a blue background and a white box for JSON data), you can add `?format=html` to any endpoint URL. For example:
+If you want a simple HTML view (with a blue background), you can add `?format=html` to any endpoint URL. For example:
 - `GET /countryinfo/v1/info/NO?format=html`
 
-This feature makes it easier to read the response in a browser. It does not change the underlying data—only how it is displayed.
+This feature makes it easier to read the response in a browser. It does not change the underlying data — only how it is displayed.
 
 ---
 
-## How to Run
+## As a code
+### Gitlab
+- ` If you have access to the repository, you can clone it from the following link:`
+``` https://git.gvk.idi.ntnu.no/course/prog2005/prog2005-2025-workspace/ahmad/assignment-1.git```
+### Running
+- Please run the code to host the service on your local machine.
 
-1. **Clone the repository** (or copy these files) into your local Go workspace.  
-2. **Navigate** to the project directory.  
-3. **Build and run**:  
-   - `go build && ./country-info-service`  
-   - or simply `go run .`  
-4. **Access the service** at [http://localhost:8080/](http://localhost:8080/) in your browser or through a REST client.
-
----
-
-## Example Usage
-
-1. **General Info about Norway (JSON)**  
-   - URL: `http://localhost:8080/countryinfo/v1/info/NO`  
-   - Response: A JSON object containing details such as `name`, `continents`, `population`, `languages`, `borders`, `flag`, `capital`, and `cities`.
-
-2. **General Info about Norway (HTML)**  
-   - URL: `http://localhost:8080/countryinfo/v1/info/NO?format=html`  
-   - Response: An HTML page with a blue background and a white box displaying the JSON data.
-
-3. **Population Data (JSON)**  
-   - URL: `http://localhost:8080/countryinfo/v1/population/NO`  
-   - Response: A JSON object that includes the historical population records and a calculated `mean` value.
-
-4. **Population Data with Year Range Filter (HTML)**  
-   - URL: `http://localhost:8080/countryinfo/v1/population/NO?limit=2010-2015&format=html`  
-   - Response: An HTML page showing the filtered records (from 2010 to 2015) and the average population for that period.
-
-5. **Status (JSON)**  
-   - URL: `http://localhost:8080/countryinfo/v1/status/`  
-   - Response: A JSON object with diagnostic details including the status codes for the external APIs, service version, and uptime.
-
-6. **Status (HTML)**  
-   - URL: `http://localhost:8080/countryinfo/v1/status/?format=html`  
-   - Response: The same information as the JSON response, but displayed in a styled HTML page.
+**Access the service** at [http://localhost:8080/](http://localhost:8080/) in your browser or through a REST client.
 
 ---
 
@@ -109,27 +158,4 @@ This feature makes it easier to read the response in a browser. It does not chan
 - **README.md**: This file
 
 ---
-
-## Notes and Limitations
-
-1. **In-memory Population Data**  
-   The project uses a simple map (`populationDataMap`) to simulate a database of historical population data. This is primarily for demonstration and testing. You can extend it to support additional countries or replace it with a real database in production.
-
-2. **External API Availability**  
-   The REST Countries API and CountriesNow API are self-hosted for this assignment. If they become unreachable or return errors, this service will respond with appropriate HTTP error responses (e.g., 500).
-
-3. **Deployment**  
-   In a real-world scenario, you might deploy this service on a platform like Render, AWS, or another cloud provider. You could also add environment variables for configuration, logging, and other production-grade features.
-
-4. **Further Enhancements**  
-   - Implement caching to reduce calls to external APIs.  
-   - Add more robust error handling and logging.  
-   - Create a more advanced front-end or documentation page for easier usage.
-
-This service meets the assignment requirements by:
-- Providing general country information via `/info/`.  
-- Offering historical population data (including optional year range filtering) via `/population/`.  
-- Delivering diagnostic information via `/status/`.  
-- Supporting both JSON and optional HTML output for improved readability.
-
-Enjoy using the Country Information Service!
+## Enjoy using the Country Information Service!
