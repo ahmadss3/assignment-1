@@ -39,9 +39,9 @@ The service combines information from these external APIs to provide:
 
 - **Example:**   
   - `GET /countryinfo/v1/info/NO?limit=10&format=html`
-  - **Response:** Content type: application/json.
+- **Response:** Content type: application/json.
 
-**Body:**
+- **Body:**
 ```json
 {
   "name": "Norway",
@@ -73,8 +73,8 @@ The service combines information from these external APIs to provide:
 - **Examples:**  
   - `GET /countryinfo/v1/population/NO`  
   - `GET /countryinfo/v1/population/NO?limit=2013-2015&format=html`
-  **Response:** Content type: application/json
-  **Body:**
+- **Response:** Content type: application/json
+- **Body:**
 ```json
 {
   "mean": 5135154,
@@ -101,8 +101,8 @@ The service combines information from these external APIs to provide:
 - **Query Parameter (optional):** `format`(html) to get a HTML view.  
 - **Example:**  
   - `GET /countryinfo/v1/status/?format=html`
-  **Response:** Content type: application/json
-  **Body:**
+- **Response:** Content type: application/json
+- **Body:**
 ``` json
 {
   "countriesnowapi": 200,
