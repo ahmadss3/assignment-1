@@ -127,6 +127,9 @@ func fetchCitiesFromCountriesNow(countryName string) ([]string, error) {
 }
 
 // populationDataMap simulates an in-memory database of historical population data.
+// NOTE: Currently, it only has data for "NO" (Norway). This can be extended
+// or replaced with a real external data source if needed.
+
 var populationDataMap = map[string][]PopulationRecord{
 	"NO": {
 		{Year: 2010, Value: 4889252},
@@ -162,6 +165,7 @@ func checkRestCountriesAPI() int {
 
 // checkCountriesNowAPI performs a POST request to check if the CountriesNow API is reachable.
 // It returns the HTTP status code, or 0 if not reachable.
+
 func checkCountriesNowAPI() int {
 	url := countriesNowAPI + "countries/cities"
 	payload, err := json.Marshal(map[string]string{

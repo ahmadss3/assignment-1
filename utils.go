@@ -33,6 +33,7 @@ func parseYearRange(limitStr string) (int, int, error) {
 // respondJSONOrHTML checks if the user requested ?format=html.
 // If so, it returns an HTML page with the JSON data inside a <pre> block.
 // Otherwise, it returns raw JSON with Content-Type: application/json.
+
 func respondJSONOrHTML(w http.ResponseWriter, r *http.Request, data interface{}) error {
 	format := r.URL.Query().Get("format")
 	if format == "html" {
@@ -44,6 +45,7 @@ func respondJSONOrHTML(w http.ResponseWriter, r *http.Request, data interface{})
 
 		// A simple HTML template that displays the JSON data inside a <pre> element,
 		// with a blue background, white text, and a white-bordered, rounded-corner box.
+
 		const tmpl = `
 		<!DOCTYPE html>
 		<html>
@@ -54,20 +56,20 @@ func respondJSONOrHTML(w http.ResponseWriter, r *http.Request, data interface{})
 				body {
 					font-family: sans-serif;
 					margin: 20px;
-					background-color: #0000cc; /* or any shade of blue you prefer */
-					color: #ffffff; /* white text for the page */
+					background-color: #0000cc; 
+					color: #ffffff; 
 				}
 				h1 {
-					color: #ffffff; /* ensure the heading text is white */
+					color: #ffffff; 
 				}
 				pre {
-					background-color: #ffffff;  /* white background inside the box */
-					color: #000000;             /* black text for the JSON content */
+					background-color: #ffffff;  
+					color: #000000;             
 					padding: 10px;
-					border: 2px solid #ffffff;  /* white border */
-					border-radius: 10px;        /* rounded corners */
-					white-space: pre-wrap;      /* wrap lines automatically */
-					word-wrap: break-word;      /* break long words if needed */
+					border: 2px solid #ffffff;  
+					border-radius: 10px;        
+					white-space: pre-wrap;      
+					word-wrap: break-word;      
 				}
 			</style>
 		</head>

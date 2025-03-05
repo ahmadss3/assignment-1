@@ -12,6 +12,7 @@ import (
 // It extracts the two-letter country code, fetches general country info
 // from the REST Countries API, fetches city data from the CountriesNow API,
 // and returns the combined data. It also checks if the user wants HTML output.
+
 func handleCountryInfo(w http.ResponseWriter, r *http.Request) {
 	countryCode := strings.TrimPrefix(r.URL.Path, "/countryinfo/v1/info/")
 	if countryCode == "" {
@@ -63,6 +64,7 @@ func handleCountryInfo(w http.ResponseWriter, r *http.Request) {
 // It retrieves population data from an in-memory map, optionally filters it
 // by a year range, calculates the mean, and returns the result.
 // It also checks if the user wants HTML output.
+
 func handleCountryPopulation(w http.ResponseWriter, r *http.Request) {
 	countryCode := strings.TrimPrefix(r.URL.Path, "/countryinfo/v1/population/")
 	if countryCode == "" {
@@ -119,6 +121,7 @@ func handleCountryPopulation(w http.ResponseWriter, r *http.Request) {
 // handleStatus handles requests for the Diagnostics/Status endpoint.
 // It checks the status of both external APIs (REST Countries API and CountriesNow API)
 // and calculates the service uptime. It also checks if the user wants HTML output.
+
 func handleStatus(w http.ResponseWriter, r *http.Request) {
 	restStatus := checkRestCountriesAPI()
 	countriesNowStatus := checkCountriesNowAPI()
@@ -133,6 +136,7 @@ func handleStatus(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Respond in JSON or HTML, depending on the 'format' query parameter.
+
 	if err := respondJSONOrHTML(w, r, status); err != nil {
 		http.Error(w, "Failed to encode status response: "+err.Error(), http.StatusInternalServerError)
 	}

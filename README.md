@@ -5,7 +5,7 @@ This project provides a simple Go-based REST web application that offers informa
 ## Overview
 The application integrates data from:
 - REST Countries API 
-    - Endpoint: http://129.241.150.113:8080/v3.1/
+    - Endpoint:      http://129.241.150.113:8080/v3.1/
     - Documentation: http://129.241.150.113:8080/
 - CountriesNow API 
      - Endpoint:      http://129.241.150.113:3500/api/v0.1/
@@ -37,12 +37,9 @@ The service combines information from these external APIs to provide:
 - **Query Parameter (optional):** `limit` (integer) to limit the number of returned cities.
 - **Query Parameter (optional):** `format`(html) to get a HTML view.
 
-- **Examples:**  
-  - `GET /countryinfo/v1/info/NO`  
+- **Example:**   
   - `GET /countryinfo/v1/info/NO?limit=10&format=html`
-
-**Response**  
-- Content type: application/json
+  - **Response:** Content type: application/json.
 
 **Body:**
 ```json
@@ -76,10 +73,10 @@ The service combines information from these external APIs to provide:
 - **Examples:**  
   - `GET /countryinfo/v1/population/NO`  
   - `GET /countryinfo/v1/population/NO?limit=2013-2015&format=html`
-  **Response**
-  - Content type: application/json
+  **Response:** Content type: application/json
   **Body:**
-  ```{
+```json
+{
   "mean": 5135154,
   "values": [
     {
@@ -95,7 +92,8 @@ The service combines information from these external APIs to provide:
       "value": 5188607
     }
   ]
-}```
+}
+```
 
 ### 3. `/countryinfo/v1/status/`
 - **Method:** GET  
@@ -103,15 +101,16 @@ The service combines information from these external APIs to provide:
 - **Query Parameter (optional):** `format`(html) to get a HTML view.  
 - **Example:**  
   - `GET /countryinfo/v1/status/?format=html`
-  **Response**
-  - Content type: application/json
+  **Response:** Content type: application/json
   **Body:**
-  ``` {
+``` json
+{
   "countriesnowapi": 200,
   "restcountriesapi": 200,
   "version": "v1",
   "uptime": 1370
-}```
+}
+```
 
 ---
 
