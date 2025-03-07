@@ -38,7 +38,7 @@ The service combines information from these external APIs to provide:
 - **Query Parameter (optional):** `format`(html) to get a HTML view.
 
 - **Example:**   
-  - `GET /countryinfo/v1/info/NO?limit=10&format=html`
+  - `GET /countryinfo/v1/info/NO?limit=5&format=html`
 - **Response:** Content type: application/json.
 
 - **Body:**
